@@ -1,18 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class UICondition : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Condition health;
+    public Condition energy;
+    public Condition water;
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        CharacterManager.Instance.Player.condition.uiCondition = this;
     }
 }

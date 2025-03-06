@@ -893,6 +893,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 0}
+  condition: {fileID: 0}
+--- !u!114 &1192140099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1192140091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba1b2150c4afb406a915a3cca931993a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiCondition: {fileID: 0}
+  noWaterHealthDecay: 2
 --- !u!4 &1407172041 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6954531691785998512, guid: cf8443763fc34314490f8a3e2f94dd37, type: 3}
@@ -976,6 +991,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e8d9674253f7448ba11b150b72ad27e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: {fileID: 7857931041616626406}
+  energy: {fileID: 7657957822040556000}
+  water: {fileID: 2099174123291993592}
 --- !u!1 &1578597243
 GameObject:
   m_ObjectHideFlags: 0
@@ -1520,6 +1538,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 81bb9eea30387e442899949a80011e55, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1192140097}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 81bb9eea30387e442899949a80011e55, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1192140099}
   m_SourcePrefab: {fileID: 100100000, guid: 81bb9eea30387e442899949a80011e55, type: 3}
 --- !u!1 &2099174123291993585
 GameObject:
@@ -1534,7 +1555,7 @@ GameObject:
   - component: {fileID: 2099174123291993591}
   - component: {fileID: 2099174123291993592}
   m_Layer: 5
-  m_Name: Level bar
+  m_Name: Water bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1611,6 +1632,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8f7dbcc28d89498290546b5d5afd046, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  curValue: 0
+  maxValue: 100
+  startValue: 100
+  passiveValue: -1
+  uiBar: {fileID: 2099174123291993591}
 --- !u!1 &2099174123652150301
 GameObject:
   m_ObjectHideFlags: 0
@@ -1930,6 +1956,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8f7dbcc28d89498290546b5d5afd046, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  curValue: 0
+  maxValue: 100
+  startValue: 100
+  passiveValue: -20
+  uiBar: {fileID: 7657957822040555998}
 --- !u!222 &7657957822111029680
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2170,6 +2201,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8f7dbcc28d89498290546b5d5afd046, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  curValue: 0
+  maxValue: 100
+  startValue: 100
+  passiveValue: -20
+  uiBar: {fileID: 7857931041616626402}
 --- !u!222 &7857931042482150121
 CanvasRenderer:
   m_ObjectHideFlags: 0
