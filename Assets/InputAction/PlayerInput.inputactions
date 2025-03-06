@@ -33,6 +33,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Run",
+                    "type": "Button",
+                    "id": "e516e55f-20e4-4e98-9297-8f54bff24962",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "Invenroty",
                     "type": "Button",
                     "id": "3fb0f4a3-854a-4a43-b2cf-427322d710a3",
@@ -148,6 +157,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Interaction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6e13ee8a-7321-4f53-a6e3-33a1ea9d3b1d",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "Press(behavior=2)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Run",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
