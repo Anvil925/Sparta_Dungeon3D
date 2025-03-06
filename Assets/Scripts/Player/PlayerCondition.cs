@@ -6,7 +6,7 @@ public class PlayerCondition : MonoBehaviour
     public UICondition uiCondition;
 
     Condition health { get { return uiCondition.health; } }
-    Condition energy { get { return uiCondition.energy; } }
+    public Condition energy { get { return uiCondition.energy; } }
     Condition water { get { return uiCondition.water; } }
 
     public float noWaterHealthDecay = 1f;
@@ -14,9 +14,7 @@ public class PlayerCondition : MonoBehaviour
 
     private void Update()
     {
-        energy.Subtract(energy.passiveValue * Time.deltaTime);
         water.Add(water.passiveValue * Time.deltaTime);
-
         if(water.curValue < 0f)
         {
             health.Subtract(noWaterHealthDecay * Time.deltaTime);

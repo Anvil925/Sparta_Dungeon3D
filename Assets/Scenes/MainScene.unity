@@ -1635,7 +1635,7 @@ MonoBehaviour:
   curValue: 0
   maxValue: 100
   startValue: 100
-  passiveValue: -1
+  passiveValue: -2
   uiBar: {fileID: 2099174123291993591}
 --- !u!1 &2099174123652150301
 GameObject:
@@ -1959,7 +1959,7 @@ MonoBehaviour:
   curValue: 0
   maxValue: 100
   startValue: 100
-  passiveValue: -20
+  passiveValue: 10
   uiBar: {fileID: 7657957822040555998}
 --- !u!222 &7657957822111029680
 CanvasRenderer:
@@ -2204,7 +2204,7 @@ MonoBehaviour:
   curValue: 0
   maxValue: 100
   startValue: 100
-  passiveValue: -20
+  passiveValue: 0
   uiBar: {fileID: 7857931041616626402}
 --- !u!222 &7857931042482150121
 CanvasRenderer:

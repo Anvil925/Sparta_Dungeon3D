@@ -41,6 +41,11 @@ public class PlayerController : MonoBehaviour
         defaultMoveSpeed = moveSpeed; // 시작 시 기본 속도 저장
     }
 
+    void Update()
+    {
+        RunnigEnergy();
+        EnergyCheck();
+    }
     private void FixedUpdate()
     {
         Move();
@@ -85,20 +90,38 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void OnRunInput(InputAction.CallbackContext context)
+    public void OnRunInput (InputAction.CallbackContext context)
     {
-        if(context.phase == InputActionPhase.Started)
+        if (context.phase == InputActionPhase.Started)
         {
             moveSpeed = runSpeed;
             animator.SetBool("isRunning", true);
         }
-        else if(context.phase == InputActionPhase.Canceled)
+        else if (context.phase == InputActionPhase.Canceled)
         {
             moveSpeed = defaultMoveSpeed; // 저장해둔 기본 속도로 복원
             animator.SetBool("isRunning", false);
         }
     }
-
+    public void EnergyCheck()
+    {
+        if (CharacterManager.Instance.Player.condition.energy.curValue <= 0)
+        {
+            moveSpeed = defaultMoveSpeed;
+            animator.SetBool("isRunning", false);
+        }
+    }
+    public void RunnigEnergy()
+    {
+        if (CharacterManager.Instance.Player.condition.energy.curValue > 0 && animator.GetBool("isRunning"))
+        {
+            CharacterManager.Instance.Player.condition.energy.Subtract(10 * Time.deltaTime);
+        }
+        else if (!animator.GetBool("isRunning"))
+        {
+            CharacterManager.Instance.Player.condition.energy.Add(CharacterManager.Instance.Player.condition.energy.passiveValue * Time.deltaTime);
+        }
+    }
     private void Move()
     {
         Vector3 dir = transform.forward * curMovementInput.y + transform.right * curMovementInput.x;
