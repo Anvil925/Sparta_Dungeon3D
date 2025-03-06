@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public float jumpPower;
     public LayerMask groundLayerMask;
     private float defaultMoveSpeed; // 기본 이동 속도 저장용 변수
+    private Animator animator;
 
     
 
@@ -31,6 +32,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
     }
 
     void Start()
@@ -62,10 +64,12 @@ public class PlayerController : MonoBehaviour
         if(context.phase == InputActionPhase.Performed)
         {
             curMovementInput = context.ReadValue<Vector2>();
+            animator.SetBool("isWalking", true);
         }
         else if(context.phase == InputActionPhase.Canceled)
         {
             curMovementInput = Vector2.zero;
+            animator.SetBool("isWalking", false);
         }
     }
 
@@ -86,10 +90,12 @@ public class PlayerController : MonoBehaviour
         if(context.phase == InputActionPhase.Started)
         {
             moveSpeed = runSpeed;
+            animator.SetBool("isRunning", true);
         }
         else if(context.phase == InputActionPhase.Canceled)
         {
             moveSpeed = defaultMoveSpeed; // 저장해둔 기본 속도로 복원
+            animator.SetBool("isRunning", false);
         }
     }
 
