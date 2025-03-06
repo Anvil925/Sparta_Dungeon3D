@@ -14,7 +14,7 @@ public class PlayerCondition : MonoBehaviour
 
     private void Update()
     {
-        water.Add(water.passiveValue * Time.deltaTime);
+        water.Subtract(water.passiveValue * Time.deltaTime);
         if(water.curValue < 0f)
         {
             health.Subtract(noWaterHealthDecay * Time.deltaTime);
