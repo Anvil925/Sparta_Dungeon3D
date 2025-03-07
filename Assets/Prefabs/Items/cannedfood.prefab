@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: 95041019010786384}
   - component: {fileID: 5411153770724092296}
   - component: {fileID: 5030545215063529541}
-  m_Layer: 0
+  - component: {fileID: 2808028436605762018}
+  m_Layer: 7
   m_Name: cannedfood
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -155,3 +156,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2808028436605762018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1896720402374228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fe1da84ba35249a6a1fb314abf3ccb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: 8e2ebb27f51084958a5800c9594f34e5, type: 2}

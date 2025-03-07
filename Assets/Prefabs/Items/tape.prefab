@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 95874985128877956}
   - component: {fileID: 6361369088769598692}
   - component: {fileID: 6175994725123959109}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: tape
   m_TagString: Untagged
   m_Icon: {fileID: 0}
