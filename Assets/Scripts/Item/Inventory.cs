@@ -24,13 +24,13 @@ public class Inventory : MonoBehaviour
 
     public void UseItem(ItemData item)
     {
-        if (items.ContainsKey(item) && items[item] > 0)
+        if (items.ContainsKey(item) && items[item] > 0) 
         {
             items[item]--;
             Debug.Log($"{item.displayName} 사용! 남은 개수: {items[item]}");
 
-            if (items[item] <= 0)
-                items.Remove(item);
+            if (items[item] <= 0) // 아이템 개수가 0 이하일 경우
+                items.Remove(item); // 아이템 제거
         }
     }
 
@@ -48,5 +48,5 @@ public class Inventory : MonoBehaviour
             inventoryText.text += $"{item.Key.displayName} x {item.Value}\n"; // 아이템 이름과 개수를 UI에 표시
         }
     }
-    
+
 }

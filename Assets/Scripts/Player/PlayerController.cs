@@ -13,6 +13,12 @@ public class PlayerController : MonoBehaviour
     private float defaultMoveSpeed; // 기본 이동 속도 저장용 변수
     private Animator animator;
 
+    [Header("WallClimb")]
+    public float wallClimbSpeed;
+    public float wallCheckDistance;
+    public LayerMask wallLayerMask;
+    public bool isWallClimbing = false;
+
     
     [Header("Use Item")]
     private PlayerCondition condition;
@@ -56,6 +62,7 @@ public class PlayerController : MonoBehaviour
     {
         RunnigEnergy();
         EnergyCheck();
+        WallClimb();
     }
     private void FixedUpdate()
     {
@@ -153,7 +160,7 @@ public class PlayerController : MonoBehaviour
 
     public void CheckConsumable()
     {
-        Debug.Log("✅ CheckConsumable() 실행됨");
+        Debug.Log("CheckConsumable() 실행됨");
 
         if (condition == null)
         {
@@ -199,6 +206,35 @@ public class PlayerController : MonoBehaviour
         else if (!animator.GetBool("isRunning"))
         {
             CharacterManager.Instance.Player.condition.energy.Add(CharacterManager.Instance.Player.condition.energy.passiveValue * Time.deltaTime);
+        }
+    }
+
+    void WallClimb()
+    {
+        // 시작점을 플레이어 위치에서 Y축으로 올려줌(예: 1.0f는 플레이어 키의 약 절반 높이)
+        Vector3 raycastOrigin = transform.position + Vector3.up * 2.0f;
+        
+        // 디버그용 레이 표시 (개발 중에만 사용)
+        Debug.DrawRay(raycastOrigin, transform.forward * wallCheckDistance, Color.yellow);
+        
+        if (Physics.Raycast(raycastOrigin, transform.forward, wallCheckDistance, wallLayerMask))
+        {
+            isWallClimbing = true;
+            rigidbody.useGravity = false;
+            rigidbody.velocity = Vector3.up * wallClimbSpeed;
+            animator.SetBool("isClimb", true);
+            
+            // 디버그 로그
+            Debug.Log("Wall Climb!");
+            // 디버그 레이 표시
+            Debug.DrawRay(raycastOrigin, transform.forward * wallCheckDistance, Color.red);
+            Debug.DrawRay(transform.position, Vector3.up * wallClimbSpeed, Color.green);
+        }
+        else if (isWallClimbing)
+        {
+            isWallClimbing = false;
+            rigidbody.useGravity = true;
+            animator.SetBool("isClimb", false);
         }
     }
     private void Move()
