@@ -21,7 +21,10 @@ public class PlayerController : MonoBehaviour
 
 
     [Header("Look")]
-    public Transform cameraContainer;
+    public Transform firstPersonView;  // 1인칭 카메라 위치
+    public Transform thirdPersonView; // 3인칭 카메라 위치
+    private bool isThirdPerson = false; // 현재 시점이 3인칭인지 여부
+    public Transform cameraContainer; 
     public float minXLook;
     public float maxXLook;
     private float camCurXRot;
@@ -46,6 +49,7 @@ public class PlayerController : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         defaultMoveSpeed = moveSpeed; // 시작 시 기본 속도 저장
+        SetCameraView(); // 시작할 때 기본 시점 설정
     }
 
     void Update()
@@ -69,6 +73,15 @@ public class PlayerController : MonoBehaviour
     public void OnLookInput(InputAction.CallbackContext context)
     {
         mouseDelta = context.ReadValue<Vector2>();
+    }
+
+    public void OnViewChangeInput(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started)
+        {
+            isThirdPerson = !isThirdPerson; // 시점 변경
+            SetCameraView();
+        }
     }
 
     public void OnMoveInput(InputAction.CallbackContext context)
@@ -195,6 +208,19 @@ public class PlayerController : MonoBehaviour
         dir.y = rigidbody.velocity.y;
 
         rigidbody.velocity = dir;
+    }
+    void SetCameraView()
+    {
+        if (isThirdPerson)
+        {
+            cameraContainer.position = thirdPersonView.position;
+            cameraContainer.rotation = thirdPersonView.rotation;
+        }
+        else
+        {
+            cameraContainer.position = firstPersonView.position;
+            cameraContainer.rotation = firstPersonView.rotation;
+        }
     }
 
     void CameraLook()
