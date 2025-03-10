@@ -53,14 +53,21 @@ public class Interaction : MonoBehaviour
         promptText.text = curInteractable.GetInteractPrompt();
     }
 
-    public void OnInteractInput(InputAction.CallbackContext context) // 상호작용 입력 시 호출
+    public void OnInteractInput(InputAction.CallbackContext context)
     {
-        if(context.phase == InputActionPhase.Started && curInteractable != null) // 상호작용 가능한 오브젝트가 있을 경우
+        if (context.phase == InputActionPhase.Started && curInteractable != null) // 상호작용 가능한 오브젝트가 있을 경우
         {
             curInteractable.OnInteract(); // 상호작용 가능한 오브젝트의 OnInteract 메서드 호출
             Inventory.Instance.AddItem(CharacterManager.Instance.Player.itemData); // 인벤토리에 아이템 추가
-            Debug.Log("아이템 획득: " + CharacterManager.Instance.Player.itemData.displayName);
+
+            Debug.Log("아이템 획득: " + CharacterManager.Instance.Player.itemData?.displayName);
             Debug.Log("현재 인벤토리 아이템 개수: " + Inventory.Instance.GetItemCount(CharacterManager.Instance.Player.itemData));
+
+            if (CharacterManager.Instance.Player.itemData == null)
+            {
+                Debug.LogError("아이템을 줍고 나서 itemData가 null입니다!");
+            }
+
             curInteractGameObject = null;
             curInteractable = null;
             promptText.gameObject.SetActive(false);

@@ -31,7 +31,7 @@ public class PlayerCondition : MonoBehaviour
         health.Add(amount);
     }
 
-    public void Eat(float amount)
+    public void Drink(float amount)
     {
         water.Add(amount);
     }

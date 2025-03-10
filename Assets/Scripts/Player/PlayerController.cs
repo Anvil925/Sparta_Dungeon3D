@@ -14,6 +14,11 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
 
     
+    [Header("Use Item")]
+    private PlayerCondition condition;
+    private Inventory inventory;
+    public ItemDataConsumable[] consumables;
+
 
     [Header("Look")]
     public Transform cameraContainer;
@@ -33,6 +38,8 @@ public class PlayerController : MonoBehaviour
     {
         rigidbody = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+        condition = GetComponent<PlayerCondition>();
+        inventory = GetComponent<Inventory>();
     }
 
     void Start()
@@ -101,6 +108,65 @@ public class PlayerController : MonoBehaviour
         {
             moveSpeed = defaultMoveSpeed; // 저장해둔 기본 속도로 복원
             animator.SetBool("isRunning", false);
+        }
+    }
+    public void OnUseItemInput(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started)
+        {
+            if (CharacterManager.Instance.Player.itemData != null)
+            {
+                int itemCount = Inventory.Instance.GetItemCount(CharacterManager.Instance.Player.itemData);
+                Debug.Log("현재 아이템 개수: " + itemCount);
+
+                if (itemCount > 0) // 아이템이 1개 이상일 때만 사용
+                {
+                    Debug.Log("아이템 사용: " + CharacterManager.Instance.Player.itemData.displayName);
+                    CheckConsumable();
+                    Inventory.Instance.UseItem(CharacterManager.Instance.Player.itemData);
+                    Debug.Log("사용 후 남은 아이템 개수: " + Inventory.Instance.GetItemCount(CharacterManager.Instance.Player.itemData));
+                }
+                else
+                {
+                    Debug.LogWarning("아이템이 없습니다! 사용 불가");
+                }
+            }
+            else
+            {
+                Debug.LogError("아이템 데이터가 null입니다!");
+            }
+        }
+    }
+
+    public void CheckConsumable()
+    {
+        Debug.Log("✅ CheckConsumable() 실행됨");
+
+        if (condition == null)
+        {
+            Debug.LogError("condition이 null입니다! 올바르게 할당되지 않았을 가능성이 큼.");
+            return;
+        }
+
+        for (int i = 0; i < CharacterManager.Instance.Player.itemData.consumables.Length; i++)
+        {
+            Debug.Log("아이템 효과: " + CharacterManager.Instance.Player.itemData.consumables[i].type + ", 값: " + CharacterManager.Instance.Player.itemData.consumables[i].value);
+
+            if (CharacterManager.Instance.Player.itemData.consumables[i].type == ConsumableType.Health)
+            {
+                Debug.Log("Health 회복: " + CharacterManager.Instance.Player.itemData.consumables[i].value);
+                condition.Heal(CharacterManager.Instance.Player.itemData.consumables[i].value);
+            }
+            else if (CharacterManager.Instance.Player.itemData.consumables[i].type == ConsumableType.Energy)
+            {
+                Debug.Log("Energy 추가: " + CharacterManager.Instance.Player.itemData.consumables[i].value);
+                condition.energy.Add(CharacterManager.Instance.Player.itemData.consumables[i].value);
+            }
+            else if (CharacterManager.Instance.Player.itemData.consumables[i].type == ConsumableType.Water)
+            {
+                Debug.Log("Water 사용: " + CharacterManager.Instance.Player.itemData.consumables[i].value);
+                condition.Drink(CharacterManager.Instance.Player.itemData.consumables[i].value);
+            }
         }
     }
     public void EnergyCheck()

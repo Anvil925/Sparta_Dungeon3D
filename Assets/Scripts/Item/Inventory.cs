@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Inventory : MonoBehaviour
 {
     public static Inventory Instance;  // 싱글턴 패턴 사용
-
+    public TextMeshProUGUI inventoryText; // 인벤토리 UI 텍스트
     private Dictionary<ItemData, int> items = new Dictionary<ItemData, int>(); // 아이템과 개수를 저장하는 딕셔너리
 
     private void Awake()
@@ -37,4 +38,15 @@ public class Inventory : MonoBehaviour
     {
         return items.ContainsKey(item) ? items[item] : 0;
     }
+
+    private void UpdateInventoryUI()
+    {
+        inventoryText.text = ""; // UI 초기화
+
+        foreach (var item in items)
+        {
+            inventoryText.text += $"{item.Key.displayName} x {item.Value}\n"; // 아이템 이름과 개수를 UI에 표시
+        }
+    }
+    
 }
